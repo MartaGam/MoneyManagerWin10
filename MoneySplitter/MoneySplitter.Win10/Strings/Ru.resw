@@ -133,7 +133,7 @@
     <value>Потвердить</value>
   </data>
   <data name="AVATAR_IMAGE_TEXTBLOCK_TEXT" xml:space="preserve">
-    <value>Загрузить изоброжение на профель</value>
+    <value>Загрузить изоброжение на профиль</value>
     <comment>registerView</comment>
   </data>
   <data name="BACKGROUND_IMAGE_TEXTBLOCK_TEXT" xml:space="preserve">

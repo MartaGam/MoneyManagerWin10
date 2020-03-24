@@ -21,18 +21,25 @@
 
             <TextBox extensions:XamlElementExtensions.Resource="EMAIL_PLACEHOLDER_TEXT"
                      Text="{x:Bind ViewModel.Email, Mode=TwoWay }"
+                     BorderThickness="1"
                      Style="{StaticResource DefaultTextBoxStyle}"/>
 
             <PasswordBox extensions:XamlElementExtensions.Resource="PASSWORD_PLACEHOLDER_TEXT"
                          Password="{x:Bind ViewModel.Password, Mode=TwoWay}"
+                         BorderThickness="1"
                          Style="{StaticResource DefaultPasswordBoxStyle}"/>
 
             <Button extensions:XamlElementExtensions.Resource="LOGIN_BUTTON_CONTENT"
                     Style="{StaticResource DefaultButtonStyle}"
+                    Margin="0,20,0,8"
+                    HorizontalAlignment="Center"
+                    Width="226"
                     Click="OnLoginClick"/>
 
             <Button extensions:XamlElementExtensions.Resource="REGISTER_BUTTON_CONTENT"
                     Click="OnRegistredClick"
+                    HorizontalAlignment="Center"
+                    Width="226"
                     Style="{StaticResource DefaultButtonStyle}"/>
         </StackPanel>
 

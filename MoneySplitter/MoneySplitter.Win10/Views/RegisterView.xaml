@@ -18,32 +18,43 @@
                     Padding="5">
 
             <TextBox extensions:XamlElementExtensions.Resource="EMAIL_PLACEHOLDER_TEXT"
+                     BorderThickness="1"
                      Text="{x:Bind ViewModel.RegisterModel.Email, Mode=TwoWay}"
                      Style="{StaticResource DefaultTextBoxStyle}"/>
 
 
             <PasswordBox extensions:XamlElementExtensions.Resource="PASSWORD_PLACEHOLDER_TEXT"
                          Password="{x:Bind ViewModel.RegisterModel.Password, Mode=TwoWay}"
+                         BorderThickness="1"
                          Style="{StaticResource DefaultPasswordBoxStyle}"/>
 
             <PasswordBox extensions:XamlElementExtensions.Resource="CONFIRM_PASSWORD_PLACEHOLDER_TEXT"
                          Password="{x:Bind ViewModel.ConfirmPassword, Mode=TwoWay}"
+                         BorderThickness="1"
                          Style="{StaticResource DefaultPasswordBoxStyle}"/>
 
             <TextBox extensions:XamlElementExtensions.Resource="NAME_PLACEHOLDER_TEXT"
                      Text="{x:Bind ViewModel.RegisterModel.Name, Mode=TwoWay}"
+                     BorderThickness="1"
                      Style="{StaticResource DefaultTextBoxStyle}"/>
 
             <TextBox extensions:XamlElementExtensions.Resource="SURNAME_PLACEHOLDER_TEXT"
                      Text="{x:Bind ViewModel.RegisterModel.Surname, Mode=TwoWay}"
+                     BorderThickness="1"
                      Style="{StaticResource DefaultTextBoxStyle}"/>
 
+            <TextBlock Text="Кредитная карта:"
+                       Margin="4,4,0,0"/>
             <TextBox extensions:XamlElementExtensions.Resource="NUMBER_CREDIT_CARD_PLACEHOLDER_TEXT"
                      Text="{x:Bind ViewModel.RegisterModel.CreditCardNumber, Mode=TwoWay}"
+                     BorderThickness="1"
                      Style="{StaticResource DefaultTextBoxStyle}"/>
 
+            <TextBlock Text=" Номер телефона:"
+                       Margin="4,4,0,0"/>
             <TextBox extensions:XamlElementExtensions.Resource="NUMBER_PHONE_PLACEHOLDER_TEXT"
                      Text="{x:Bind ViewModel.RegisterModel.PhoneNumber, Mode=TwoWay}"
+                     BorderThickness="1"
                      Style="{StaticResource DefaultTextBoxStyle}"/>
 
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
@@ -53,20 +64,23 @@
 
                 <Button extensions:XamlElementExtensions.Resource="BROWSE_BUTTON_CONTENT"
                         Click="OnBrowseAvatarImage"
+                        Style="{StaticResource DefaultButtonStyle}"
                         HorizontalAlignment="Right"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
-                <TextBlock Text="{x:Bind ViewModel.LabelForBackgroundImage, Mode=OneWay}"
+                <TextBlock Text="Фоновое изображение:"
                            Margin="0,0,5,0"
                            VerticalAlignment="Center"/>
                 <Button extensions:XamlElementExtensions.Resource="BROWSE_BUTTON_CONTENT"
                         Click="OnBrowseBackgroundImage"
+                        Style="{StaticResource DefaultButtonStyle}"
                         HorizontalAlignment="Right"/>
             </StackPanel>
 
             <Button extensions:XamlElementExtensions.Resource="REGISTER_BUTTON_CONTENT"
                     Click="OnRegisterButtonClick"
+                    Style="{StaticResource DefaultButtonStyle}"
                     Margin="5"
                     HorizontalAlignment="Center"/>
         </StackPanel>

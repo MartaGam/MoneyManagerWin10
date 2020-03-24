@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="ea28eb4b-fd48-4709-9008-cc8de039a553" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>MoneySplitter.Win10</DisplayName>
-    <PublisherDisplayName>MargaritaG</PublisherDisplayName>
+    <PublisherDisplayName>Siarhei_Kulbeda</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
