@@ -10,11 +10,13 @@ namespace MoneySplitter.Infrastructure
 		void InitializeShellNavigationService(object navigationService);
 		void NavigateToHomeViewModel();
 		void NavigateToFriendsViewModel();
+		void NavigateToSettings();
 		void NavigateToFriendDetails(UserModel userModel);
 		void NavigateToShellViewModel(Type viewModelType);
 		void NavigateToSearchUsersViewModel();
 		void NavigateToAddTransactionViewModel();
 		void NavigateToTransactionsViewModel();
+		void NavigateToHistory();
 		void NavigateToTransactionDetailsViewModel(TransactionEventModel transaction);
 		void GoBack();
 

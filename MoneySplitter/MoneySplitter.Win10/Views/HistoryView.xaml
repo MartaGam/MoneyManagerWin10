@@ -1,0 +1,66 @@
+﻿<Page x:Class="MoneySplitter.Win10.Views.HistoryView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:MoneySplitter.Win10.Views"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:app="using:MoneySplitter.Models.App"
+      xmlns:converters="using:MoneySplitter.Win10.Converters"
+      mc:Ignorable="d"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Style x:Key="ListViewItemContainerStyle" TargetType="ListViewItem">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+        <Style x:Key="CostPositiveStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="ForestGreen"/>
+        </Style>
+        <Style x:Key="CostNegativeStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Red"/>
+        </Style>
+        <converters:BoolToStyleAlternativeConverter x:Key="CostStyleConverter"
+                                                    TrueStyle="{StaticResource CostPositiveStyle}"
+                                                    FalseStyle="{StaticResource CostNegativeStyle}"/>
+        <DataTemplate x:Key="HistoryItemTemplate" x:DataType="app:HistoryItemModel">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="0">
+                    <TextBlock Text="{x:Bind Cost, Converter={StaticResource DoubleToPlusMinus}, Mode=OneWay}"
+                               Style="{x:Bind IsPositive, Converter={StaticResource CostStyleConverter}, Mode=OneWay}"/>
+                    <TextBlock Text="$"/>
+                </StackPanel>
+                <TextBlock Text="{x:Bind Title, Mode=OneWay}"
+                           MaxLines="1"
+                           Grid.Column="1"
+                           TextWrapping="NoWrap"
+                           TextTrimming="CharacterEllipsis"/>
+                <TextBlock Text="{x:Bind Date, Converter={StaticResource DateTimeToString}, ConverterParameter='MMMM dd yyyy', Mode=OneWay}"
+                           Grid.Column="2"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="0,16,0,16"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <TextBlock Text="Итоговая разница: "/>
+            <TextBlock Text="{x:Bind ViewModel.Total, Converter={StaticResource DoubleToPlusMinus}, Mode=OneWay}"/>
+        </StackPanel>
+        <ListView Grid.Row="1"
+                  IsItemClickEnabled="True"
+                  SelectionMode="None"
+                  ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                  ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
+                  ItemTemplate="{StaticResource HistoryItemTemplate}"/>
+    </Grid>
+</Page>

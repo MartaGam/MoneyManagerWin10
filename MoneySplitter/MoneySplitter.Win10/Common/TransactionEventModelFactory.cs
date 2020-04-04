@@ -29,13 +29,13 @@ namespace MoneySplitter.Win10.Common
         public IEnumerable<TransactionEventModel> GetFriendDebts(IEnumerable<TransactionModel> friendTransactions, int friendId)
         {
             return GetTransactionEvents(friendTransactions.
-                Where(tr => IsMyTransaction(tr)), friendId, false, true);
+                Where(tr => IsMyTransaction(tr) && !tr.FinishedIds.Contains(friendId)), friendId, false, true);
         }
 
         public IEnumerable<TransactionEventModel> GetFriendLends(IEnumerable<TransactionModel> friendTransactions, int friendId)
         {
             return GetTransactionEvents(friendTransactions.
-                Where(tr => tr.Owner.Id == friendId), friendId);
+                Where(tr => tr.Owner.Id == friendId && !tr.FinishedIds.Contains(_membershipService.CurrentUser.Id)), friendId);
         }
 
         public IEnumerable<TransactionEventModel> GetCommonTransationsByFriend(IEnumerable<TransactionModel> friendTransactions, int friendId)

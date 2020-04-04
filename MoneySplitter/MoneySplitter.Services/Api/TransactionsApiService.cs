@@ -9,80 +9,93 @@ using System.Threading.Tasks;
 
 namespace MoneySplitter.Services.Api
 {
-    public class TransactionsApiService : ITransactionsApiService
-    {
-        private readonly IApiUrlBuilder _apiUrlBuilder;
-        private readonly IQueryApiService _queryApiService;
-        private readonly IMapper _mapper;
-        private readonly IExecutor _executor;
+	public class TransactionsApiService : ITransactionsApiService
+	{
+		private readonly IApiUrlBuilder _apiUrlBuilder;
+		private readonly IQueryApiService _queryApiService;
+		private readonly IMapper _mapper;
+		private readonly IExecutor _executor;
 
-        public TransactionsApiService(IApiUrlBuilder apiUrlBuilder, IQueryApiService queryApiService, IMapper mapper, IExecutor executor)
-        {
-            _apiUrlBuilder = apiUrlBuilder;
-            _queryApiService = queryApiService;
-            _mapper = mapper;
-            _executor = executor;
-        }
+		public TransactionsApiService(IApiUrlBuilder apiUrlBuilder, IQueryApiService queryApiService, IMapper mapper, IExecutor executor)
+		{
+			_apiUrlBuilder = apiUrlBuilder;
+			_queryApiService = queryApiService;
+			_mapper = mapper;
+			_executor = executor;
+		}
 
-        public async Task<ExecutionResult<IEnumerable<TransactionModel>>> GetAllUserTransactionsAsync()
-        {
-            var allUserTransactionsUrl = _apiUrlBuilder.AllUserTransactions();
-            return await GetAllUserTransactions(allUserTransactionsUrl);
-        }
+		public async Task<ExecutionResult<IEnumerable<TransactionModel>>> GetAllUserTransactionsAsync()
+		{
+			var allUserTransactionsUrl = _apiUrlBuilder.AllUserTransactions();
+			return await GetAllUserTransactions(allUserTransactionsUrl);
+		}
 
-        public async Task<ExecutionResult<IEnumerable<TransactionModel>>> GetAllUserTransactionsAsync(int friendId)
-        {
-            var allUserTransactionsUrl = _apiUrlBuilder.AllUserTransactions(friendId);
-            return await GetAllUserTransactions(allUserTransactionsUrl);
-        }
+		public async Task<bool> ApproveTransactionsForFriendAsync(int friendId)
+		{
+			var allUserTransactionsUrl = _apiUrlBuilder.ApproveAllTransactionsForFriend(friendId);
+			return await _queryApiService.PostAsync(allUserTransactionsUrl);
+		}
 
-        public async Task<bool> AddTransactionAsync(AddTransactionModel addTransactionModel)
-        {
-            var addTransactiodUrl = _apiUrlBuilder.AddTransaction();
+		public async Task<ExecutionResult<IEnumerable<TransactionModel>>> GetAllUserTransactionsAsync(int friendId)
+		{
+			var allUserTransactionsUrl = _apiUrlBuilder.AllUserTransactions(friendId);
+			return await GetAllUserTransactions(allUserTransactionsUrl);
+		}
 
-            var addTransactionData = _mapper.ConvertAddTransactioModelToAddTransactionData(addTransactionModel);
+		public async Task<bool> AddTransactionAsync(AddTransactionModel addTransactionModel)
+		{
+			var addTransactiodUrl = _apiUrlBuilder.AddTransaction();
 
-            return await _queryApiService.PostAsync(addTransactiodUrl, addTransactionData);
-        }
+			var addTransactionData = _mapper.ConvertAddTransactioModelToAddTransactionData(addTransactionModel);
 
-        public async Task<bool> MoveUserToInProgressAsync(int transactionId)
-        {
-            var collaborateUrl = _apiUrlBuilder.Collaborate(transactionId);
+			return await _queryApiService.PostAsync(addTransactiodUrl, addTransactionData);
+		}
 
-            return await _queryApiService.PostAsync(collaborateUrl);
-        }
+		public async Task<bool> PostBalanceAsync(double newValue)
+		{
+			var postBalanceUrl = _apiUrlBuilder.ChangeBalance(newValue);
 
-        public async Task<bool> MoveUserToFineshedAsync(int transactionId, int userId)
-        {
-            var approveTransactionUrl = _apiUrlBuilder.Approve(transactionId, userId);
+			return await _queryApiService.PostAsync(postBalanceUrl);
+		}
 
-            return await _queryApiService.PostAsync(approveTransactionUrl);
-        }
+		public async Task<bool> MoveUserToInProgressAsync(int transactionId)
+		{
+			var collaborateUrl = _apiUrlBuilder.Collaborate(transactionId);
 
-        private async Task<ExecutionResult<IEnumerable<TransactionModel>>> GetAllUserTransactions(Uri allUserTransactionsUrl)
-        {
-            var result = new ExecutionResult<IEnumerable<TransactionModel>>
-            {
-                IsSuccess = false
-            };
+			return await _queryApiService.PostAsync(collaborateUrl);
+		}
 
-            IEnumerable<TransactionData> userTransactionsData = null;
+		public async Task<bool> MoveUserToFineshedAsync(int transactionId, int userId)
+		{
+			var approveTransactionUrl = _apiUrlBuilder.Approve(transactionId, userId);
 
-            await _executor.ExecuteWithRetryAsync((async () =>
-            {
-                userTransactionsData = await _queryApiService.GetAsync<IEnumerable<TransactionData>>(allUserTransactionsUrl);
-            }));
+			return await _queryApiService.PostAsync(approveTransactionUrl);
+		}
 
-            if (userTransactionsData == null)
-            {
-                return result;
-            }
+		private async Task<ExecutionResult<IEnumerable<TransactionModel>>> GetAllUserTransactions(Uri allUserTransactionsUrl)
+		{
+			var result = new ExecutionResult<IEnumerable<TransactionModel>>
+			{
+				IsSuccess = false
+			};
 
-            result.Result =
-                userTransactionsData.Select(x => _mapper.ConvertTransactioDataToTransactionModel(x)).ToList();
+			IEnumerable<TransactionData> userTransactionsData = null;
 
-            result.IsSuccess = true;
-            return result;
-        }
-    }
+			await _executor.ExecuteWithRetryAsync((async () =>
+			{
+				userTransactionsData = await _queryApiService.GetAsync<IEnumerable<TransactionData>>(allUserTransactionsUrl);
+			}));
+
+			if (userTransactionsData == null)
+			{
+				return result;
+			}
+
+			result.Result =
+				userTransactionsData.Select(x => _mapper.ConvertTransactioDataToTransactionModel(x)).ToList();
+
+			result.IsSuccess = true;
+			return result;
+		}
+	}
 }

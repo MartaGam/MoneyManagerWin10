@@ -228,7 +228,7 @@
     <comment>titleFrame</comment>
   </data>
   <data name="INCOMING_AND_OUTGOING_FRAME_TITLE" xml:space="preserve">
-    <value>Входящие и Исходящие</value>
+    <value>Совместные транзакции</value>
     <comment>titleFrame</comment>
   </data>
   <data name="INCOMING_TEXTBLOCK_TEXT" xml:space="preserve">

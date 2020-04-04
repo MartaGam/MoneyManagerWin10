@@ -34,9 +34,9 @@
                        FontSize="18"
                        extensions:XamlElementExtensions.Resource="DEBTERS_TEXTBLOCK_TEXT"/>
                     <ListView x:Name="DebtorsList"
-                          ItemsSource="{x:Bind ViewModel.Debtors, Mode=OneWay}"
-                          IsItemClickEnabled="True"
-                          Grid.Row="1">
+                              ItemsSource="{x:Bind ViewModel.Debtors, Mode=OneWay}"
+                              IsItemClickEnabled="True"
+                              Grid.Row="1">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -45,8 +45,8 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:CollaboratorModel">
                                 <customControls:CollaboratorControl ViewModel="{x:Bind Mode=OneWay}"
-                                                                OnRemindCollaboratorButtonClick="OnRemindCollaboratorButtonClick"
-                                                                OnApproveCollaboratorButtonClick="OnApproveCollaboratorButtonClick"/>
+                                                                    OnRemindCollaboratorButtonClick="OnRemindCollaboratorButtonClick"
+                                                                    OnApproveCollaboratorButtonClick="OnApproveCollaboratorButtonClick"/>
 
 
                             </DataTemplate>

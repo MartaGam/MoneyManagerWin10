@@ -25,7 +25,7 @@ namespace MoneySplitter.Win10.Views
 
 		private async void OnGiveCollaboratorButtonClick(object sender, TransactionEventModel e)
 		{
-			await ViewModel.MoveUserToInProgressAsync(e.TransactionId);
+			await ViewModel.MoveUserToInProgressAsync(e.TransactionId, e.SingleCost);
 		}
 
 		private void OnSelectSortParameter(object sender, SelectionChangedEventArgs e)

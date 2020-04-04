@@ -179,11 +179,11 @@ namespace MoneySplitter.Win10.ViewModels
             Transactions = new ObservableCollection<TransactionEventModel>(_transactionEventModelFactory.GetTransactionEvents(_transactionsManager.UserTransactions));
         }
 
-        public async Task MoveUserToInProgressAsync(int transactionId)
+        public async Task MoveUserToInProgressAsync(int transactionId, double cost)
         {
             IsLoading = true;
 
-            var isSuccessExecution = await _transactionsManager.MoveUserToInProgressAsync(transactionId) &&
+            var isSuccessExecution = await _transactionsManager.MoveUserToInProgressAsync(transactionId, cost) &&
                 await _transactionsManager.LoadUserTransactionsAsync();
 
             IsLoading = false;

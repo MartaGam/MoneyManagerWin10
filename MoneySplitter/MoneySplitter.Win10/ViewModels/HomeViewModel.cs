@@ -14,6 +14,7 @@ namespace MoneySplitter.Win10.ViewModels
 		private readonly IMembershipService _membershipService;
 		private readonly IFriendsManager _friendsManager;
 		private readonly ITransactionsManager _transactionsManager;
+		private readonly INavigationManager _navigationManager;
 		private readonly TransactionEventModelFactory _transactionsFactory;
 
 		private UserModel _currentUserModel;
@@ -100,12 +101,24 @@ namespace MoneySplitter.Win10.ViewModels
 			IMembershipService membershipService,
 			IFriendsManager friendsManager,
 			ITransactionsManager transactionsManager,
+			INavigationManager navigationManager,
 			TransactionEventModelFactory transactionsFactory)
 		{
 			_membershipService = membershipService;
 			_friendsManager = friendsManager;
+			_navigationManager = navigationManager;
 			_transactionsManager = transactionsManager;
 			_transactionsFactory = transactionsFactory;
+		}
+
+		public void NavigateToHistory()
+		{
+			_navigationManager.NavigateToHistory();
+		}
+
+		public void NavigateToSettings()
+		{
+			_navigationManager.NavigateToSettings();
 		}
 
 		public void RemoveNotification(NotificationModel notification)

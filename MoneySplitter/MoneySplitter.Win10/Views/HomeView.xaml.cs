@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace MoneySplitter.Win10.Views
 {
-	public sealed partial class HomeView : Page
+	public sealed partial class HomeView
 	{
 		public HomeViewModel ViewModel { get; set; }
 
@@ -23,6 +23,16 @@ namespace MoneySplitter.Win10.Views
 		{
 			var button = sender as Button;
 			ViewModel.RemoveNotification(button.DataContext as NotificationModel);
+		}
+
+		private void OnEditButtonClick(object sender, RoutedEventArgs e)
+		{
+			ViewModel.NavigateToSettings();
+		}
+
+		private void OnHistoryButtonClick(object sender, RoutedEventArgs e)
+		{
+			ViewModel.NavigateToHistory();
 		}
 	}
 }
